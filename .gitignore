@@ -1,0 +1,10 @@
+# Generated HTML files (built by scripts/build.py)
+*.html
+getting-started/
+usage/
+advanced/
+
+# Python
+__pycache__/
+*.pyc
+.DS_Store
