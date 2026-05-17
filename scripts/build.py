@@ -14,35 +14,35 @@ OUT_DIR = "."
 SITE_TITLE = "Hermes Agent Guide"
 
 NAV_STRUCTURE = [
-    {"title": "Home", "file": "index.md", "path": "index.html"},
+    {"title": "Home", "title_cn": "首页", "file": "index.md", "path": "index.html"},
     {
-        "title": "Getting Started",
+        "title": "Getting Started", "title_cn": "入门指南",
         "children": [
-            {"title": "Installation", "file": "getting-started/installation.md", "path": "getting-started/installation.html"},
-            {"title": "Configuration", "file": "getting-started/configuration.md", "path": "getting-started/configuration.html"},
-            {"title": "Quickstart", "file": "getting-started/quickstart.md", "path": "getting-started/quickstart.html"},
+            {"title": "Installation", "title_cn": "安装", "file": "getting-started/installation.md", "path": "getting-started/installation.html"},
+            {"title": "Configuration", "title_cn": "配置", "file": "getting-started/configuration.md", "path": "getting-started/configuration.html"},
+            {"title": "Quickstart", "title_cn": "快速开始", "file": "getting-started/quickstart.md", "path": "getting-started/quickstart.html"},
         ],
     },
     {
-        "title": "Usage",
+        "title": "Usage", "title_cn": "使用指南",
         "children": [
-            {"title": "Basic Usage", "file": "usage/basic-usage.md", "path": "usage/basic-usage.html"},
-            {"title": "TUI Mode", "file": "usage/tui-mode.md", "path": "usage/tui-mode.html"},
-            {"title": "Slash Commands", "file": "usage/slash-commands.md", "path": "usage/slash-commands.html"},
+            {"title": "Basic Usage", "title_cn": "基本使用", "file": "usage/basic-usage.md", "path": "usage/basic-usage.html"},
+            {"title": "TUI Mode", "title_cn": "TUI 模式", "file": "usage/tui-mode.md", "path": "usage/tui-mode.html"},
+            {"title": "Slash Commands", "title_cn": "斜杠命令", "file": "usage/slash-commands.md", "path": "usage/slash-commands.html"},
         ],
     },
     {
-        "title": "Advanced",
+        "title": "Advanced", "title_cn": "高级功能",
         "children": [
-            {"title": "Skills", "file": "advanced/skills.md", "path": "advanced/skills.html"},
-            {"title": "Memory System", "file": "advanced/memory-system.md", "path": "advanced/memory-system.html"},
-            {"title": "MCP Servers", "file": "advanced/mcp-servers.md", "path": "advanced/mcp-servers.html"},
-            {"title": "Subagents", "file": "advanced/subagents.md", "path": "advanced/subagents.html"},
-            {"title": "Gateway", "file": "advanced/gateway.md", "path": "advanced/gateway.html"},
+            {"title": "Skills", "title_cn": "技能", "file": "advanced/skills.md", "path": "advanced/skills.html"},
+            {"title": "Memory System", "title_cn": "记忆系统", "file": "advanced/memory-system.md", "path": "advanced/memory-system.html"},
+            {"title": "MCP Servers", "title_cn": "MCP 服务器", "file": "advanced/mcp-servers.md", "path": "advanced/mcp-servers.html"},
+            {"title": "Subagents", "title_cn": "子代理", "file": "advanced/subagents.md", "path": "advanced/subagents.html"},
+            {"title": "Gateway", "title_cn": "网关", "file": "advanced/gateway.md", "path": "advanced/gateway.html"},
         ],
     },
-    {"title": "Troubleshooting", "file": "troubleshooting.md", "path": "troubleshooting.html"},
-    {"title": "FAQ", "file": "faq.md", "path": "faq.html"},
+    {"title": "Troubleshooting", "title_cn": "故障排除", "file": "troubleshooting.md", "path": "troubleshooting.html"},
+    {"title": "FAQ", "title_cn": "常见问题", "file": "faq.md", "path": "faq.html"},
 ]
 
 
@@ -95,6 +95,13 @@ def render_markdown(text):
     return html
 
 
+def label_html(title, title_cn):
+    """Generate bilingual label HTML."""
+    if title_cn and title_cn != title:
+        return (f'<span class="lang-label lang-en">{title}</span>'
+                f'<span class="lang-label lang-cn">{title_cn}</span>')
+    return title
+
 def make_sidebar_html(current_path):
     """Generate sidebar navigation HTML, highlighting the current page."""
     depth = current_path.count("/")
@@ -105,24 +112,26 @@ def make_sidebar_html(current_path):
     parts.append('<ul class="nav-list">')
 
     for section in NAV_STRUCTURE:
+        cn = section.get("title_cn", "")
         if "children" in section:
             is_active = any(
                 child["path"] == current_path for child in section["children"]
             )
             active_class = " active-section" if is_active else ""
             parts.append(f'<li class="nav-section{active_class}">')
-            parts.append(f'<span class="nav-section-title">{section["title"]}</span>')
+            parts.append(f'<span class="nav-section-title">{label_html(section["title"], cn)}</span>')
             parts.append('<ul class="nav-sublist">')
             for child in section["children"]:
+                child_cn = child.get("title_cn", "")
                 cls = ' class="active"' if child["path"] == current_path else ""
                 parts.append(
-                    f'<li><a href="{prefix}{child["path"]}"{cls}>{child["title"]}</a></li>'
+                    f'<li><a href="{prefix}{child["path"]}"{cls}>{label_html(child["title"], child_cn)}</a></li>'
                 )
             parts.append("</ul></li>")
         else:
             cls = ' class="active"' if section["path"] == current_path else ""
             parts.append(
-                f'<li><a href="{prefix}{section["path"]}"{cls}>{section["title"]}</a></li>'
+                f'<li><a href="{prefix}{section["path"]}"{cls}>{label_html(section["title"], cn)}</a></li>'
             )
 
     parts.append("</ul></nav>")
@@ -575,6 +584,14 @@ a:hover {{ color: var(--accent-hover); text-decoration: underline; }}
 [data-theme="dark"] .codehilite .o {{ color: #94a3b8; }}
 [data-theme="dark"] .codehilite .p {{ color: #94a3b8; }}
 
+/* Language labels in nav */
+.lang-label {{
+    display: none;
+}}
+.lang-label.lang-en {{
+    display: inline;
+}}
+
 /* Overlay for mobile sidebar */
 .sidebar-overlay {{
     display: none;
@@ -678,6 +695,23 @@ function setLang(lang) {{
         document.getElementById('lang-both').classList.add('active');
         enCol.style.display = 'block';
         cnCol.style.display = 'block';
+    }}
+    // Toggle nav labels
+    document.querySelectorAll('.lang-label').forEach(function(el) {{
+        el.style.display = 'none';
+    }});
+    if (lang === 'en') {{
+        document.querySelectorAll('.lang-label.lang-en').forEach(function(el) {{
+            el.style.display = 'inline';
+        }});
+    }} else if (lang === 'zh') {{
+        document.querySelectorAll('.lang-label.lang-cn').forEach(function(el) {{
+            el.style.display = 'inline';
+        }});
+    }} else {{
+        document.querySelectorAll('.lang-label').forEach(function(el) {{
+            el.style.display = 'inline';
+        }});
     }}
     localStorage.setItem('lang', lang);
 }}
