@@ -640,6 +640,9 @@ if (savedTheme === 'dark') {{
     document.getElementById('theme-toggle').textContent = '☾';
 }}
 
+var savedLang = localStorage.getItem('lang') || 'en';
+setLang(savedLang);
+
 function toggleTheme() {{
     var html = document.documentElement;
     var btn = document.getElementById('theme-toggle');
@@ -676,6 +679,7 @@ function setLang(lang) {{
         enCol.style.display = 'block';
         cnCol.style.display = 'block';
     }}
+    localStorage.setItem('lang', lang);
 }}
 
 document.getElementById('search-input').addEventListener('keydown', function(e) {{
