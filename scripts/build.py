@@ -14,13 +14,13 @@ OUT_DIR = "."
 SITE_TITLE = "Hermes Agent Guide"
 
 NAV_STRUCTURE = [
-    {"title": "Home", "title_cn": "首页", "file": "index.md", "path": "index.html"},
+    {"title": "Home", "title_cn": "首頁", "file": "index.md", "path": "index.html"},
     {
-        "title": "Getting Started", "title_cn": "入门指南",
+        "title": "Getting Started", "title_cn": "入門指南",
         "children": [
-            {"title": "Installation", "title_cn": "安装", "file": "getting-started/installation.md", "path": "getting-started/installation.html"},
+            {"title": "Installation", "title_cn": "安裝", "file": "getting-started/installation.md", "path": "getting-started/installation.html"},
             {"title": "Configuration", "title_cn": "配置", "file": "getting-started/configuration.md", "path": "getting-started/configuration.html"},
-            {"title": "Quickstart", "title_cn": "快速开始", "file": "getting-started/quickstart.md", "path": "getting-started/quickstart.html"},
+            {"title": "Quickstart", "title_cn": "快速開始", "file": "getting-started/quickstart.md", "path": "getting-started/quickstart.html"},
         ],
     },
     {
@@ -28,21 +28,21 @@ NAV_STRUCTURE = [
         "children": [
             {"title": "Basic Usage", "title_cn": "基本使用", "file": "usage/basic-usage.md", "path": "usage/basic-usage.html"},
             {"title": "TUI Mode", "title_cn": "TUI 模式", "file": "usage/tui-mode.md", "path": "usage/tui-mode.html"},
-            {"title": "Slash Commands", "title_cn": "斜杠命令", "file": "usage/slash-commands.md", "path": "usage/slash-commands.html"},
+            {"title": "Slash Commands", "title_cn": "斜線命令", "file": "usage/slash-commands.md", "path": "usage/slash-commands.html"},
         ],
     },
     {
-        "title": "Advanced", "title_cn": "高级功能",
+        "title": "Advanced", "title_cn": "高級功能",
         "children": [
             {"title": "Skills", "title_cn": "技能", "file": "advanced/skills.md", "path": "advanced/skills.html"},
-            {"title": "Memory System", "title_cn": "记忆系统", "file": "advanced/memory-system.md", "path": "advanced/memory-system.html"},
-            {"title": "MCP Servers", "title_cn": "MCP 服务器", "file": "advanced/mcp-servers.md", "path": "advanced/mcp-servers.html"},
+            {"title": "Memory System", "title_cn": "記憶系統", "file": "advanced/memory-system.md", "path": "advanced/memory-system.html"},
+            {"title": "MCP Servers", "title_cn": "MCP 伺服器", "file": "advanced/mcp-servers.md", "path": "advanced/mcp-servers.html"},
             {"title": "Subagents", "title_cn": "子代理", "file": "advanced/subagents.md", "path": "advanced/subagents.html"},
-            {"title": "Gateway", "title_cn": "网关", "file": "advanced/gateway.md", "path": "advanced/gateway.html"},
+            {"title": "Gateway", "title_cn": "網關", "file": "advanced/gateway.md", "path": "advanced/gateway.html"},
         ],
     },
     {"title": "Troubleshooting", "title_cn": "故障排除", "file": "troubleshooting.md", "path": "troubleshooting.html"},
-    {"title": "FAQ", "title_cn": "常见问题", "file": "faq.md", "path": "faq.html"},
+    {"title": "FAQ", "title_cn": "常見問題", "file": "faq.md", "path": "faq.html"},
 ]
 
 
